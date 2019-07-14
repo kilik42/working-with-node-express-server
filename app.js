@@ -5,8 +5,15 @@ const app = express()
 const morgan = require('morgan')
 const mysql = require('mysql')
 
+app.use(express.static('./public'))
+
 app.use(morgan('short'))
 
+
+app.post('/user_create', (req,res)=>{
+  console.log("trying to cretea new user")
+  res.end()
+})
 app.get('/user/:id', (req, res) =>{
   console.og("fetching user with id" + req.params.id)
 
@@ -31,6 +38,8 @@ app.get('/user/:id', (req, res) =>{
       return
     }
     console.log("i think we fetched users successfully")
+
+
 
     const users = rows.map((row)=>{
       return {firstName: row.first_name, lastName: row.last_name}
